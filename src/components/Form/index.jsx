@@ -6,6 +6,7 @@ class Form extends React.Component {
     super(props);
     this.title = "";
     this.text = "";
+    this.category = "No Category";
   }
 
   _handleTitle(e) {
@@ -17,14 +18,28 @@ class Form extends React.Component {
     this.text = e.target.value;
   }
   _newNote(e) {
-    e.preventDefault(); // prevent the reload 
+    e.preventDefault(); // prevent the reload
     e.stopPropagation();
-    this.props.newNote(this.title, this.text)
+    this.props.newNote(this.title, this.text, this.category);
+  }
+
+  _handleCategory(e) {
+    e.stopPropagation();
+    this.category = e.target.value;
   }
 
   render() {
     return (
       <form className="register-form" onSubmit={this._newNote.bind(this)}>
+        <select
+          onChange={this._handleCategory.bind(this)}
+          className="register-form-input"
+        >
+          <option value="No Category">No Category</option>
+          {this.props.categories.map((category) => (
+            <option value={category}>{category}</option>
+          ))}
+        </select>
         <input
           type="text"
           placeholder="Title"

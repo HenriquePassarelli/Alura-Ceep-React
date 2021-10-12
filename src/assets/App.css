@@ -1,6 +1,9 @@
 .content {
   display: flex;
 }
+.main-content {
+  flex-grow: 3;
+}
 
 :root {
   --primaria: #58a4b0;
