@@ -4,44 +4,25 @@ import Form from './components/Form'
 import "./assets/App.css";
 import './assets/index.css';
 import CategoryList from './components/CategoryList'
+import Category from './data/Category'
+import Notes from './data/Notes'
 class App extends React.Component {
 
   constructor() {
     super();
-
-    this.state = {
-      notes: [],
-      categories: []
-    }
+    this.categories = new Category();
+    this.notes = new Notes();
   }
 
-  newNote(title, text, category) {
-    const newNote = { title, text, category };
-    const notes = [...this.state.notes, newNote];
-    const newState = { notes }
-    this.setState(newState);
-  }
-
-  deleteNote(index) {
-    let notes = this.state.notes;
-    notes.splice(index, 1);
-    this.setState({ notes });
-    console.log(this.state.notes)
-  }
-
-  newCategory(categoryName) {
-    const categories = [...this.state.categories, categoryName]
-    this.setState({ categories });
-  }
 
   render() {
-    const { notes } = this.state
+
     return (
       <section className="content">
-        <Form categories={this.state.categories} newNote={this.newNote.bind(this)} />
+        <Form categories={this.categories} newNote={this.notes.newNote.bind(this.notes)} />
         <main className="main-content">
-          <CategoryList addCategory={this.newCategory.bind(this)} categories={this.state.categories} />
-          <List notes={notes} deleteNote={this.deleteNote.bind(this)} />
+          <CategoryList addCategory={this.categories.addCategory.bind(this.categories)} categories={this.categories} />
+          <List notes={this.notes} deleteNote={this.notes.deleteNote.bind(this.notes)} />
 
         </main>
 

@@ -7,6 +7,21 @@ class Form extends React.Component {
     this.title = "";
     this.text = "";
     this.category = "No Category";
+    this.state = { categories: [] };
+
+    this._newCategory = this._newCategory.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.categories.subscribe(this._newCategory);
+  }
+
+  componentWillUnmount() {
+    this.props.categories.unsubscribe(this._newCategory);
+  }
+
+  _newCategory(categories) {
+    this.setState({ ...this.state, categories });
   }
 
   _handleTitle(e) {
@@ -36,8 +51,8 @@ class Form extends React.Component {
           className="register-form-input"
         >
           <option value="No Category">No Category</option>
-          {this.props.categories.map((category) => (
-            <option value={category}>{category}</option>
+          {this.state.categories.map((category, index) => (
+            <option key={index}>{category}</option>
           ))}
         </select>
         <input

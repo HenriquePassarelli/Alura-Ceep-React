@@ -3,10 +3,23 @@ import CardNotes from "../CardNotes";
 import "./List.css";
 
 class List extends React.Component {
+  constructor() {
+    super();
+    this.state = { notes: [] };
+  }
+
+  componentDidMount() {
+    this.props.notes.subscribe(this._newNotes.bind(this));
+  }
+
+  _newNotes(notes) {
+    this.setState({ ...this.state, notes });
+  }
+
   render() {
     return (
       <ul className="note-list">
-        {this.props.notes.map((note, index) => (
+        {this.state.notes.map((note, index) => (
           <li className="note-item" key={index}>
             <CardNotes
               deleteNote={this.props.deleteNote}
