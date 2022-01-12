@@ -1,2 +1,2 @@
 # Alura React Trail
-#### javaScript learn path
+####  learn path
